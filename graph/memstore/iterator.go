@@ -159,6 +159,17 @@ func (it *Iterator) Contains(v graph.Value) bool {
 	return graph.ContainsLogOut(it, v, false)
 }
 
+func (it *Iterator) Seek(v graph.Value) bool {
+	graph.SeekLogIn(it, v)
+
+	iter, found := it.tree.Seek(v.(int64))
+	if found {
+		it.iter = iter
+	}
+
+	return graph.SeekLogOut(it, v, found)
+}
+
 func (it *Iterator) DebugString(indent int) string {
 	size, _ := it.Size()
 	return fmt.Sprintf("%s(%s tags:%s size:%d %s)", strings.Repeat(" ", indent), it.Type(), it.tags.Tags(), size, it.data)
