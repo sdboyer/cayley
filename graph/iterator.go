@@ -292,6 +292,23 @@ func ContainsLogOut(it Iterator, val Value, good bool) bool {
 	return good
 }
 
+func SeekLogIn(it Iterator, val Value) {
+	if glog.V(4) {
+		glog.V(4).Infof("%s %d SEEK FOUND %d", strings.ToUpper(it.Type().String()), it.UID(), val)
+	}
+}
+
+func SeekLogOut(it Iterator, val Value, good bool) bool {
+	if glog.V(4) {
+		if good {
+			glog.V(4).Infof("%s %d SEEK FOUND %d GOOD", strings.ToUpper(it.Type().String()), it.UID(), val)
+		} else {
+			glog.V(4).Infof("%s %d SEEK FOUND %d BAD", strings.ToUpper(it.Type().String()), it.UID(), val)
+		}
+	}
+	return good
+}
+
 func NextLogIn(it Iterator) {
 	if glog.V(4) {
 		glog.V(4).Infof("%s %d NEXT", strings.ToUpper(it.Type().String()), it.UID())
